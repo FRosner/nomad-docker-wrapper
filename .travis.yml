@@ -3,9 +3,6 @@ sudo: required
 services:
   - docker
 
-before_script:
-  - chmod u+x nomad-docker-wrapper
-
 script:
   - pwd
   - ls
