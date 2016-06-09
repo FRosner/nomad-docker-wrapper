@@ -8,5 +8,5 @@ This is useful when you require features that are not supported by the nomad doc
 ## Usage
 
 ```sh
-sudo NOMAD_DOCKER_CONTAINER_NAME=python ./nomad-docker-wrapper python:alpine python -m http.server
+sudo NOMAD_DOCKER_CONTAINER_NAME=http ./nomad-docker-wrapper python:alpine python -m http.server
 ```
