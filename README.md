@@ -1,5 +1,7 @@
 # Nomad Docker Wrapper
 
+[![Build Status](https://travis-ci.org/FRosner/nomad-docker-wrapper.svg?branch=master)](https://travis-ci.org/FRosner/nomad-docker-wrapper)
+
 ## Description
 
 Small wrapper to enable running arbitrary docker run commands in [nomad](https://www.nomadproject.io/).
