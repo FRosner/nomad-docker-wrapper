@@ -1,0 +1,24 @@
+#!/bin/bash
+
+NOMAD_DOCKER_COMMAND=$*
+
+if [ -z "$NOMAD_DOCKER_CONTAINER_NAME" ]; then
+  echo 'Please set $NOMAD_DOCKER_CONTAINER_NAME'
+  exit
+fi
+
+if [ -z "$NOMAD_DOCKER_COMMAND" ]; then
+  echo 'Please set $NOMAD_DOCKER_COMMAND'
+  exit
+fi
+
+echo "Stopping container $NOMAD_DOCKER_CONTAINER_NAME"
+docker stop $NOMAD_DOCKER_CONTAINER_NAME
+
+echo "Removing container $NOMAD_DOCKER_CONTAINER_NAME"
+docker rm $NOMAD_DOCKER_CONTAINER_NAME
+
+echo "Starting container $NOMAD_DOCKER_CONTAINER_NAME"
+exec docker run \
+  --name $NOMAD_DOCKER_CONTAINER_NAME \
+  $NOMAD_DOCKER_COMMAND
