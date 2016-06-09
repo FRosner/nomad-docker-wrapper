@@ -9,5 +9,5 @@ This is useful when you require features that are not supported by the nomad doc
 
 ```sh
 sudo NOMAD_DOCKER_CONTAINER_NAME=http ./nomad-docker-wrapper \
--p 8000:8000 python:alpine python -m http.server&
+-p 8000:8000 python:alpine python -m http.server
 ```
