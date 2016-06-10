@@ -11,7 +11,7 @@ This is useful when you require features that are not supported by the nomad doc
 
 You can use the wrapper script as a job artifact to run your docker container with the specified arguments. Using a named container will ensure that it gets removed properly the next time you start it again. You have to provide `NOMAD_DOCKER_CONTAINER_NAME` as an environment variable.
 
-Below are examples that start a simple python web server inside a container and expose the respective port. While it is technically possible to use the wrapper from the shell, it is not very useful. The intended use case is from within a nomad file.
+Below are examples that start a simple python web server inside a container and expose the respective port. While it is technically possible to use the wrapper from the shell, it is not very useful. The intended use case is within nomad.
 
 ### Shell
 
