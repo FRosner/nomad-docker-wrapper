@@ -12,6 +12,14 @@ if [ -z "$NOMAD_DOCKER_COMMAND" ]; then
   exit
 fi
 
+if ! [ -z "$NOMAD_DOCKER_REGISTRY_URL" ]; then
+  echo "Logging in to $NOMAD_DOCKER_REGISTRY_URL"
+  docker login -u $NOMAD_DOCKER_REGISTRY_USER \
+    -p $NOMAD_DOCKER_REGISTRY_PASSWORD \
+    -e $NOMAD_DOCKER_REGISTRY_EMAIL \
+    $NOMAD_DOCKER_REGISTRY_URL
+fi
+
 echo "Stopping container $NOMAD_DOCKER_CONTAINER_NAME"
 docker stop $NOMAD_DOCKER_CONTAINER_NAME
 
