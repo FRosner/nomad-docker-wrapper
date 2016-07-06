@@ -26,6 +26,11 @@ docker stop $NOMAD_DOCKER_CONTAINER_NAME
 echo "Removing container $NOMAD_DOCKER_CONTAINER_NAME"
 docker rm $NOMAD_DOCKER_CONTAINER_NAME
 
+if ! [ -z "$NOMAD_DOCKER_PULL_COMMAND" ]; then
+  echo "Executing docker pull $NOMAD_DOCKER_PULL_COMMAND"
+  docker pull $NOMAD_DOCKER_PULL_COMMAND
+fi
+
 echo "Starting container $NOMAD_DOCKER_CONTAINER_NAME"
 exec docker run \
   --name $NOMAD_DOCKER_CONTAINER_NAME \

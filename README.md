@@ -13,6 +13,8 @@ You can use the wrapper script as a job artifact to run your docker container wi
 
 If you want to use a custom docker registry, please provide the `NOMAD_DOCKER_REGISTRY_URL` alongside with the credentials. For details, see the configuration section.
 
+If you are using the "latest" tag of an image and want to pull it before running, you can specify the image to pull by setting `NOMAD_DOCKER_PULL_COMMAND`.
+
 Below are examples that start a simple python web server inside a container and expose the respective port. While it is technically possible to use the wrapper from the shell, it is not very useful. The intended use case is within nomad.
 
 ### Shell
@@ -65,3 +67,4 @@ You can use environment variables to configure the wrapper. Below is a list of s
 | `NOMAD_DOCKER_REGISTRY_USER` | User to use for logging into your private docker registry. |
 | `NOMAD_DOCKER_REGISTRY_PASSWORD` | Password to use for logging into your private docker registry. |
 | `NOMAD_DOCKER_REGISTRY_EMAIL` | Email address to use for logging into your private docker registry. |
+| `NOMAD_DOCKER_PULL_COMMAND` | Arguments to pass to `docker pull` which will get execute before `docker run`. |
