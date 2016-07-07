@@ -15,6 +15,10 @@ You can use the wrapper script as a job artifact to run your docker container wi
 
 Using a named container will ensure that it gets removed properly the next time you start it again. You have to provide `NOMAD_DOCKER_CONTAINER_NAME` as an environment variable.
 
+## Docker Pull Before Run
+
+If you are using the "latest" tag of an image and want to pull it before running, you can specify the image to pull by setting `NOMAD_DOCKER_PULL_COMMAND`.
+
 ## Environment Variable Replacement
 
 If you want to use environment variables inside your docker command that are passed by Nomad (e.g. dynamic ports), you can include them as a String and rely on the wrapper to replace them. To accomplish this, just set `NOMAD_DOCKER_ENVSUBST` to any value.
@@ -85,3 +89,4 @@ You can use environment variables to configure the wrapper. Below is a list of s
 | `NOMAD_DOCKER_REGISTRY_USER` | User to use for logging into your private docker registry. |
 | `NOMAD_DOCKER_REGISTRY_PASSWORD` | Password to use for logging into your private docker registry. |
 | `NOMAD_DOCKER_REGISTRY_EMAIL` | Email address to use for logging into your private docker registry. |
+| `NOMAD_DOCKER_PULL_COMMAND` | Arguments to pass to `docker pull` which will get execute before `docker run`. |
