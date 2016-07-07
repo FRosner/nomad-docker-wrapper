@@ -4,6 +4,6 @@ services:
   - docker
 
 script:
-  - sudo NOMAD_DOCKER_CONTAINER_NAME=http ./nomad-docker-wrapper -p 8000:8000 python:alpine python -m http.server&
+  - sudo NOMAD_DOCKER_ENVSUBST=1 NOMAD_PORT_http=8000 NOMAD_DOCKER_CONTAINER_NAME=http ./nomad-docker-wrapper -p '$NOMAD_PORT_http':8000 python:alpine python -m http.server&
   - sleep 10
   - curl localhost:8000

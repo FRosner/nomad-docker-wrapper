@@ -26,6 +26,11 @@ docker stop $NOMAD_DOCKER_CONTAINER_NAME
 echo "Removing container $NOMAD_DOCKER_CONTAINER_NAME"
 docker rm $NOMAD_DOCKER_CONTAINER_NAME
 
+if ! [ -z "$NOMAD_DOCKER_ENVSUBST" ]; then
+  echo "Replacing environment variables in $NOMAD_DOCKER_COMMAND"
+  NOMAD_DOCKER_COMMAND=$(echo $NOMAD_DOCKER_COMMAND | envsubst)
+fi
+
 echo "Starting container $NOMAD_DOCKER_CONTAINER_NAME"
 exec docker run \
   --name $NOMAD_DOCKER_CONTAINER_NAME \
