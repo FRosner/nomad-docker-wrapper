@@ -61,7 +61,7 @@ job "http-job" {
 
       config {
         command = "nomad-docker-wrapper"
-        args = ["-p", "'$NOMAD_PORT_http':8000", "python:alpine", "python", "-m", "http.server"]
+        args = ["-p", "$NOMAD_PORT_http:8000", "python:alpine", "python", "-m", "http.server"]
       }
 
       resources {
