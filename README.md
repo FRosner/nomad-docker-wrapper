@@ -29,6 +29,8 @@ If you want to use environment variables inside your docker command that are pas
 
 If you want to use a custom docker registry, please provide the `NOMAD_DOCKER_REGISTRY_URL` alongside with the credentials. For details, see the configuration section.
 
+*CAUTION: The credentials will be passed as environment variables to the Nomad job. Everyone who can query for these environment variables through the Nomad API is able to see your registry credentials. Better practice is to make sure all Nomad nodes are logged into the docker registry already.*
+
 ## Examples
 
 Below are examples that start a simple python web server inside a container and expose the respective port. While it is technically possible to use the wrapper from the shell, it is not very useful. The intended use case is within Nomad.
