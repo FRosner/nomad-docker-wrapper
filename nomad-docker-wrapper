@@ -36,7 +36,21 @@ if ! [ -z "$NOMAD_DOCKER_ENVSUBST" ]; then
   NOMAD_DOCKER_COMMAND=$(echo $NOMAD_DOCKER_COMMAND | envsubst)
 fi
 
+_stop() {
+  echo "Stopping container $NOMAD_DOCKER_CONTAINER_NAME"
+  docker stop $NOMAD_DOCKER_CONTAINER_NAME
+}
+
+echo "Trapping SIGINT, SIGTERM and SIGKILL"
+trap _stop SIGINT
+trap _stop SIGTERM
+trap _stop SIGKILL
+
 echo "Starting container $NOMAD_DOCKER_CONTAINER_NAME"
 exec docker run \
   --name $NOMAD_DOCKER_CONTAINER_NAME \
-  $NOMAD_DOCKER_COMMAND
+  $NOMAD_DOCKER_COMMAND &
+
+echo "Waiting for container $NOMAD_DOCKER_CONTAINER_NAME to finish"
+child=$!
+wait "$child"
