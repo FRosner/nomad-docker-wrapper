@@ -47,10 +47,10 @@ trap _stop SIGTERM
 trap _stop SIGKILL
 
 echo "Starting container $NOMAD_DOCKER_CONTAINER_NAME"
-exec docker run \
+docker run -d \
   --name $NOMAD_DOCKER_CONTAINER_NAME \
-  $NOMAD_DOCKER_COMMAND &
+  $NOMAD_DOCKER_COMMAND
 
 echo "Waiting for container $NOMAD_DOCKER_CONTAINER_NAME to finish"
-child=$!
-wait "$child"
+docker wait $NOMAD_DOCKER_CONTAINER_NAME &
+wait $!
