@@ -29,6 +29,10 @@ docker rm $NOMAD_DOCKER_CONTAINER_NAME
 if ! [ -z "$NOMAD_DOCKER_PULL_COMMAND" ]; then
   echo "Executing docker pull $NOMAD_DOCKER_PULL_COMMAND"
   docker pull $NOMAD_DOCKER_PULL_COMMAND
+  if [ $? -ne 0 ]; then
+    echo "Docker pull failed"
+    exit
+  fi
 fi
 
 if ! [ -z "$NOMAD_DOCKER_ENVSUBST" ]; then
