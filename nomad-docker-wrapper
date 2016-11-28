@@ -1,5 +1,13 @@
 #!/bin/bash
 
+anywait() {
+  for pid in "$@"; do
+    while kill -0 "$pid"; do
+      sleep 0.5
+    done
+  done
+}
+
 NOMAD_DOCKER_COMMAND=$*
 
 if [ -z "$NOMAD_DOCKER_CONTAINER_NAME" ]; then
@@ -51,13 +59,12 @@ _stop() {
 echo "Trapping SIGINT, SIGTERM and SIGKILL"
 trap _stop SIGINT
 trap _stop SIGTERM
-trap _stop SIGKILL
 
 echo "Starting container $NOMAD_DOCKER_CONTAINER_NAME"
-docker run -d \
+CONTAINER_ID=$(docker run -d \
   --name $NOMAD_DOCKER_CONTAINER_NAME \
-  $NOMAD_DOCKER_COMMAND
+  $NOMAD_DOCKER_COMMAND)
 
 echo "Waiting for container $NOMAD_DOCKER_CONTAINER_NAME to finish"
-docker wait $NOMAD_DOCKER_CONTAINER_NAME &
-wait $!
+PID=$(ps aux | grep "docker-containerd-shim $CONTAINER_ID" | grep -v "grep" | awk '{print $2}')
+anywait $PID
