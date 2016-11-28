@@ -42,7 +42,10 @@ fi
 
 _stop() {
   echo "Stopping container $NOMAD_DOCKER_CONTAINER_NAME"
-  docker stop $NOMAD_DOCKER_CONTAINER_NAME
+  until docker stop $NOMAD_DOCKER_CONTAINER_NAME
+  do
+    sleep 1
+  done
 }
 
 echo "Trapping SIGINT, SIGTERM and SIGKILL"
