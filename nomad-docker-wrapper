@@ -70,6 +70,6 @@ if [ $? -ne 0 ]; then
   exit
 fi
 
-echo "Waiting for container $NOMAD_DOCKER_CONTAINER_NAME to finish"
+echo "Waiting for container $NOMAD_DOCKER_CONTAINER_NAME ($CONTAINER_ID) to finish"
 PID=$(ps aux | grep "docker-containerd-shim $CONTAINER_ID" | grep -v "grep" | awk '{print $2}')
 anywait $PID
