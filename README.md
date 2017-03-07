@@ -92,3 +92,5 @@ You can use environment variables to configure the wrapper. Below is a list of s
 | `NOMAD_DOCKER_REGISTRY_PASSWORD` | Password to use for logging into your private docker registry. |
 | `NOMAD_DOCKER_REGISTRY_EMAIL` | Email address to use for logging into your private docker registry. |
 | `NOMAD_DOCKER_PULL_COMMAND` | Arguments to pass to `docker pull` which will get execute before `docker run`. |
+| `NOMAD_DOCKER_ARTIFACT_SOURCE` | URL to wget for downloading an artifact before executing the job. |
+| `NOMAD_DOCKER_ARTIFACT_TARGET` | Folder to download the artifact to. |

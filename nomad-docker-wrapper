@@ -28,6 +28,27 @@ if ! [ -z "$NOMAD_DOCKER_REGISTRY_URL" ]; then
     $NOMAD_DOCKER_REGISTRY_URL
 fi
 
+if [[ $NOMAD_DOCKER_ARTIFACT_SOURCE ]] || [[ $NOMAD_DOCKER_ARTIFACT_TARGET ]]; then
+  if [[ -z $NOMAD_DOCKER_ARTIFACT_SOURCE ]] || [[ -z $NOMAD_DOCKER_ARTIFACT_TARGET ]]; then
+    echo 'If either $NOMAD_DOCKER_ARTIFACT_SOURCE or $NOMAD_DOCKER_ARTIFACT_TARGET is set, both must be set!'
+    exit 1
+  else
+    filename=$(basename "$NOMAD_DOCKER_ARTIFACT_SOURCE")
+    destination="$NOMAD_DOCKER_ARTIFACT_TARGET/$filename"
+    echo "Downloading $NOMAD_DOCKER_ARTIFACT_SOURCE to $destination"
+    wget -P "$NOMAD_DOCKER_ARTIFACT_TARGET" "$NOMAD_DOCKER_ARTIFACT_SOURCE"
+    cd "$NOMAD_DOCKER_ARTIFACT_TARGET"
+    if [[ "$filename" == *.tar.gz ]] || [[ "$filename" == *.tgz ]]; then
+      tar -xvzf $filename
+    elif [[ "$filename" == *.tar.bz2 ]] || [[ "$filename" == *.tbz2 ]]; then
+      tar -xvjf $filename
+    elif [[ "$filename" == *.tar ]]; then
+      tar -xvf $filename
+    fi
+    cd -
+  fi
+fi
+
 echo "Stopping container $NOMAD_DOCKER_CONTAINER_NAME"
 docker stop $NOMAD_DOCKER_CONTAINER_NAME
 
