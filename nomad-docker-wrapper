@@ -36,6 +36,7 @@ if [[ $NOMAD_DOCKER_ARTIFACT_SOURCE ]] || [[ $NOMAD_DOCKER_ARTIFACT_TARGET ]]; t
     filename=$(basename "$NOMAD_DOCKER_ARTIFACT_SOURCE")
     destination="$NOMAD_DOCKER_ARTIFACT_TARGET/$filename"
     echo "Downloading $NOMAD_DOCKER_ARTIFACT_SOURCE to $destination"
+    mkdir -p "$NOMAD_DOCKER_ARTIFACT_TARGET"
     wget -P "$NOMAD_DOCKER_ARTIFACT_TARGET" "$NOMAD_DOCKER_ARTIFACT_SOURCE"
     cd "$NOMAD_DOCKER_ARTIFACT_TARGET"
     if [[ "$filename" == *.tar.gz ]] || [[ "$filename" == *.tgz ]]; then
