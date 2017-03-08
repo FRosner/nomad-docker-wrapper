@@ -11,25 +11,35 @@ This is useful when you require features that are not supported by the Nomad doc
 
 You can use the wrapper script as a job artifact to run your docker container with the specified arguments.
 
-## Docker Container Name
+### Docker Container Name
 
 Using a named container will ensure that it gets removed properly the next time you start it again. You have to provide `NOMAD_DOCKER_CONTAINER_NAME` as an environment variable.
 
-## Docker Pull Before Run
+### Docker Pull Before Run
 
 If you are using the "latest" tag of an image and want to pull it before running, you can specify the image to pull by setting `NOMAD_DOCKER_PULL_COMMAND`.
 
-## Environment Variable Replacement
+### Environment Variable Replacement
 
 If you want to use environment variables inside your docker command that are passed by Nomad (e.g. dynamic ports), you can include them as a String and rely on the wrapper to replace them. To accomplish this, just set `NOMAD_DOCKER_ENVSUBST` to any value.
 
 *Please make sure that `envsubst` is installed on your system when using this option. It is part of the `gettext` package: `apt-get install gettext`.*
 
-## Private Docker Registry
+### Private Docker Registry
 
 If you want to use a custom docker registry, please provide the `NOMAD_DOCKER_REGISTRY_URL` alongside with the credentials. For details, see the configuration section.
 
 *CAUTION: The credentials will be passed as environment variables to the Nomad job. Everyone who can query for these environment variables through the Nomad API is able to see your registry credentials. Better practice is to make sure all Nomad nodes are logged into the docker registry already.*
+
+### Artifact Download
+
+If you want to download an artifact before launching your job, you can configure this using the `NOMAD_DOCKER_ARTIFACT_*` environment variables.
+While the functionality is somewhat overlapping with the [artifact stanza](https://www.nomadproject.io/docs/job-specification/artifact.html) from Nomad, it was introduced due to the lack of the possibility to
+provide basic authentication credentials.
+
+Nomad Docker Wrapper will download the specified resource to the specified location before executing the job.
+If you plan to use it inside the job, you should mount the target folder.
+If the file is a tar, tar gzip or tar bzip2 compressed file, it will also be uncompressed for you.
 
 ## Examples
 
