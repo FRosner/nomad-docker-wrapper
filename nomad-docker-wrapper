@@ -37,7 +37,12 @@ if [[ $NOMAD_DOCKER_ARTIFACT_SOURCE ]] || [[ $NOMAD_DOCKER_ARTIFACT_TARGET ]]; t
     destination="$NOMAD_DOCKER_ARTIFACT_TARGET/$filename"
     echo "Downloading $NOMAD_DOCKER_ARTIFACT_SOURCE to $destination"
     mkdir -p "$NOMAD_DOCKER_ARTIFACT_TARGET"
-    wget -P "$NOMAD_DOCKER_ARTIFACT_TARGET" "$NOMAD_DOCKER_ARTIFACT_SOURCE"
+    if [[ "$NOMAD_DOCKER_ARTIFACT_USER" ]] && [[ "$NOMAD_DOCKER_ARTIFACT_PASSWORD" ]]; then
+      wget --user="$NOMAD_DOCKER_ARTIFACT_USER" --password="$NOMAD_DOCKER_ARTIFACT_PASSWORD" -P "$NOMAD_DOCKER_ARTIFACT_TARGET" "$NOMAD_DOCKER_ARTIFACT_SOURCE"
+    else
+      wget -P "$NOMAD_DOCKER_ARTIFACT_TARGET" "$NOMAD_DOCKER_ARTIFACT_SOURCE"
+    fi
+    
     cd "$NOMAD_DOCKER_ARTIFACT_TARGET"
     if [[ "$filename" == *.tar.gz ]] || [[ "$filename" == *.tgz ]]; then
       tar -xvzf $filename

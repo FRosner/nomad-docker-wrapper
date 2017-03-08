@@ -83,14 +83,29 @@ job "http-job" {
 
 You can use environment variables to configure the wrapper. Below is a list of supported variables. The ones marked with * are mandatory.
 
+### General Options
+
 | Variable | Description |
 | -------- | ----------- |
 | `NOMAD_DOCKER_CONTAINER_NAME`* | Container name to be used on the docker host. |
 | `NOMAD_DOCKER_ENVSUBST` | Set this to apply `envsubst` to your docker command before running it. |
+
+### Docker Registry Interaction
+
+| Variable | Description |
+| -------- | ----------- |
+| `NOMAD_DOCKER_PULL_COMMAND` | Arguments to pass to `docker pull` which will get execute before `docker run`. |
 | `NOMAD_DOCKER_REGISTRY_URL` | URL of your private docker registry. If this is set, the wrapper will attempt to login. |
 | `NOMAD_DOCKER_REGISTRY_USER` | User to use for logging into your private docker registry. |
 | `NOMAD_DOCKER_REGISTRY_PASSWORD` | Password to use for logging into your private docker registry. |
 | `NOMAD_DOCKER_REGISTRY_EMAIL` | Email address to use for logging into your private docker registry. |
-| `NOMAD_DOCKER_PULL_COMMAND` | Arguments to pass to `docker pull` which will get execute before `docker run`. |
+
+### Artifact Download
+
+| Variable | Description |
+| -------- | ----------- |
 | `NOMAD_DOCKER_ARTIFACT_SOURCE` | URL to wget for downloading an artifact before executing the job. |
 | `NOMAD_DOCKER_ARTIFACT_TARGET` | Folder to download the artifact to. |
+| `NOMAD_DOCKER_ARTIFACT_USER` | (Optional) user name for HTTP basic authentication. |
+| `NOMAD_DOCKER_ARTIFACT_PASSWORD` | (Optional) password for HTTP basic authentication. |
+
