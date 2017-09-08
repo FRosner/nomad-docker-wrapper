@@ -1,3 +1,6 @@
+# DEPRECATION NOTE
+This tool is no longer required as Nomad now supports all major features within the native Docker driver.
+
 # Nomad Docker Wrapper
 
 [![Build Status](https://travis-ci.org/FRosner/nomad-docker-wrapper.svg?branch=master)](https://travis-ci.org/FRosner/nomad-docker-wrapper)
